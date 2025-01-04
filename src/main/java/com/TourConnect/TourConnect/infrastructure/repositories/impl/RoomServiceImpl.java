@@ -11,10 +11,14 @@ import java.util.Optional;
 import java.util.UUID;
 
 @Component
-@RequiredArgsConstructor
 public class RoomServiceImpl implements RoomRepository {
 
     private final JpaRoomRepository roomRepository;
+
+    public RoomServiceImpl(JpaRoomRepository roomRepository) {
+        this.roomRepository = roomRepository;
+    }
+
     @Override
     public Room save(Room room) {
         return roomRepository.save(room);

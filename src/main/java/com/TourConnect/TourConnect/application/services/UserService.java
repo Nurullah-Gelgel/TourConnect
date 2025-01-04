@@ -12,12 +12,17 @@ import java.util.Optional;
 import java.util.UUID;
 import java.util.stream.Collectors;
 
-@RequiredArgsConstructor
+
 @Service
 public class UserService {
 
     private final UserRepository userRepository;
     private final UsersMapper usersMapper;
+
+    public UserService(UserRepository userRepository, UsersMapper usersMapper) {
+        this.userRepository = userRepository;
+        this.usersMapper = usersMapper;
+    }
 
     public List<UsersDto> getAllUsers() {
         return userRepository.findAll().stream().map(usersMapper::toDto).collect(Collectors.toList());
@@ -44,9 +49,8 @@ public class UserService {
     public UsersDto Update(UUID id, UsersDto userDto) {
         Users userToUpdate = userRepository.findById(id).orElseThrow(() -> new RuntimeException("User not found"));
 
-        Users updatedUser = usersMapper.toEntity(userDto);
-        updatedUser.setId(userToUpdate.getId());
-        return usersMapper.toDto(userRepository.save(updatedUser));
+        usersMapper.updateEntity(userDto, userToUpdate);
+        return usersMapper.toDto(userRepository.save(userToUpdate));
 
     }
 

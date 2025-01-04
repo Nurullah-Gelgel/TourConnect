@@ -17,7 +17,7 @@ public class Hotel {
 
     @Id
     @GeneratedValue
-    private UUID hotelId;
+    private UUID id;
 
     @Column(nullable = false,name = "hotel_name")
     private String hotelName;

@@ -11,10 +11,14 @@ import java.util.Optional;
 import java.util.UUID;
 
 @Component
-@RequiredArgsConstructor
 public class ReservationRepositoryImpl implements ReservationRepository {
 
     private final JpaReservationRepository reservationRepository;
+
+    public ReservationRepositoryImpl(JpaReservationRepository reservationRepository) {
+        this.reservationRepository = reservationRepository;
+    }
+
     @Override
     public Reservation save(Reservation reservation) {
         return reservationRepository.save(reservation);

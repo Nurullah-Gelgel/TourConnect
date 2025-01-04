@@ -17,7 +17,7 @@ public class Room {
 
     @Id
     @GeneratedValue
-    private UUID roomId;
+    private UUID id;
 
     @Column(name = "room_type")
     private String roomType;

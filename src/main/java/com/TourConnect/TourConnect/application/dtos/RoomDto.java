@@ -11,7 +11,7 @@ import java.util.UUID;
 @NoArgsConstructor
 public class RoomDto {
 
-    private UUID roomId;
+    private UUID Id;
     private String roomType;
     private String roomDescription;
     private Integer roomCapacity;

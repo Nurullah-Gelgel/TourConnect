@@ -12,7 +12,7 @@ import lombok.*;
 @NoArgsConstructor
 public class ReviewDto {
 
-    private UUID reviewId;
+    private UUID id;
     private String comment;
     private Integer rating;
     private LocalDate date;

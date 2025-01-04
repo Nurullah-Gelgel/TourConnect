@@ -17,7 +17,7 @@ public class Review {
 
     @Id
     @GeneratedValue
-    private UUID reviewId;
+    private UUID id;
 
     @Column(name = "comment")
     private String comment;

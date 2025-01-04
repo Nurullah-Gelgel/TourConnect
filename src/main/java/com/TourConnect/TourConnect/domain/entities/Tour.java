@@ -17,7 +17,7 @@ public class Tour {
 
     @Id
     @GeneratedValue
-    private UUID tourId;
+    private UUID id;
 
     @Column(nullable = false,name = "tour_name")
     private String tourName;

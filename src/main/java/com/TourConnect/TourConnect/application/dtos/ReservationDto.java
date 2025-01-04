@@ -12,7 +12,7 @@ import java.util.UUID;
 @NoArgsConstructor
 public class ReservationDto {
 
-    private UUID reservationId;
+    private UUID id;
     private String status;
     private Double totalAmount;
     private Integer reservationGuests;

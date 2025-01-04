@@ -12,12 +12,16 @@ import java.util.Optional;
 import java.util.UUID;
 import java.util.stream.Collectors;
 
-@RequiredArgsConstructor
 @Service
 public class TourService {
 
     private final TourRepository tourRepository;
     private final TourMapper tourMapper;
+
+    public TourService(TourRepository tourRepository, TourMapper tourMapper) {
+        this.tourRepository = tourRepository;
+        this.tourMapper = tourMapper;
+    }
 
     public List<TourDto> getAllTours() {
         return tourRepository.findAll().stream().map(tourMapper::toDto).collect(Collectors.toList());
@@ -37,10 +41,9 @@ public class TourService {
     public TourDto update(UUID id, TourDto tourDto) {
 
         Tour tourToUpdate = tourRepository.findById(id).orElseThrow(() -> new RuntimeException("Tour not found"));
+        tourMapper.updateEntity(tourDto, tourToUpdate);
+        return tourMapper.toDto(tourRepository.save(tourToUpdate));
 
-        Tour updatedTour = tourMapper.toEntity(tourDto);
-        updatedTour.setTourId(tourToUpdate.getTourId());
-        return tourMapper.toDto(tourRepository.save(updatedTour));
     }
 
     public void deleteTour(UUID id) {

@@ -12,10 +12,13 @@ import java.util.Optional;
 import java.util.UUID;
 
 @Component
-@RequiredArgsConstructor
 public class HotelServiceImpl implements HotelRepository {
 
     private final JpaHotelRepository jpaHotelRepository;
+
+    public HotelServiceImpl(JpaHotelRepository jpaHotelRepository) {
+        this.jpaHotelRepository = jpaHotelRepository;
+    }
 
     @Override
     public Hotel save(Hotel hotel) {

@@ -12,10 +12,13 @@ import java.util.UUID;
 
 
 @Component
-@RequiredArgsConstructor
 public class TourRepositoryImpl implements TourRepository {
 
     private final JpaTourRepository tourRepository;
+
+    public TourRepositoryImpl(JpaTourRepository tourRepository) {
+        this.tourRepository = tourRepository;
+    }
 
     @Override
     public Tour save(Tour tour) {

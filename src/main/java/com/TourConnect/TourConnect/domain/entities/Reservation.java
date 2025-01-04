@@ -17,7 +17,7 @@ public class Reservation {
 
     @Id
     @GeneratedValue
-    private UUID reservationId;
+    private UUID id;
 
     @Column(name = "status")
     private String status;

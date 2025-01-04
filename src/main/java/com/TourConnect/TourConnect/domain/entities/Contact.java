@@ -18,7 +18,7 @@ public class Contact {
 
     @Id
     @GeneratedValue
-    private UUID contactId;
+    private UUID id;
 
     @Column(name = "name", nullable = false)
     private String email;

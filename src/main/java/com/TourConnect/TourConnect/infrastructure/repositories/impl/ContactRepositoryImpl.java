@@ -11,10 +11,16 @@ import java.util.Optional;
 import java.util.UUID;
 
 @Component
-@RequiredArgsConstructor
+
 public class ContactRepositoryImpl implements ContactRepository {
 
     private final JpaContactRepository contactRepository;
+
+    public ContactRepositoryImpl(JpaContactRepository contactRepository) {
+        this.contactRepository = contactRepository;
+    }
+
+
     @Override
     public Contact save(Contact contact) {
         return contactRepository.save(contact);

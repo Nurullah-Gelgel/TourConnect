@@ -13,7 +13,7 @@ import java.util.UUID;
 @NoArgsConstructor
 public class ContactDto {
 
-    private UUID contactId;
+    private UUID id;
     private String email;
     private String subject;
     private LocalDate date;

@@ -12,7 +12,7 @@ import lombok.*;
 @NoArgsConstructor
 public class HotelDto {
 
-    private UUID hotelId;
+    private UUID id;
     private String hotelName;
     private String hotelAddress;
     private String hotelCity;

@@ -11,10 +11,15 @@ import java.util.Optional;
 import java.util.UUID;
 
 @Service
-@RequiredArgsConstructor
+
 public class ReviewServiceImpl implements ReviewRepository {
 
     private final JpaReviewRepository reviewRepository;
+
+    public ReviewServiceImpl(JpaReviewRepository reviewRepository) {
+        this.reviewRepository = reviewRepository;
+    }
+
     @Override
     public Review save(Review review) {
         return reviewRepository.save(review);

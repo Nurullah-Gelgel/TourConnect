@@ -12,7 +12,7 @@ import lombok.*;
 @NoArgsConstructor
 public class TourDto {
 
-    private UUID tourId;
+    private UUID id;
     private String tourName;
     private String tourStartAddress;
     private String tourEndAddress;

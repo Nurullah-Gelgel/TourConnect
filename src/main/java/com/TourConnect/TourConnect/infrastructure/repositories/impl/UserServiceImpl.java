@@ -11,10 +11,13 @@ import java.util.Optional;
 import java.util.UUID;
 
 @Component
-@RequiredArgsConstructor
 public class UserServiceImpl implements UserRepository {
 
     private final JpaUserRepository jpaUserRepository;
+
+    public UserServiceImpl(JpaUserRepository jpaUserRepository) {
+        this.jpaUserRepository = jpaUserRepository;
+    }
 
     @Override
     public Users findByUsername(String username) {
