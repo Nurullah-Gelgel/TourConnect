@@ -31,3 +31,65 @@ build/
 
 ### VS Code ###
 .vscode/
+
+# Maven ve derleme ile ilgili dosyalar
+/target/
+*.jar
+*.war
+*.ear
+
+# IDE ve editör dosyaları
+/.idea/
+/*.iml
+/.classpath
+/.project
+/.settings/
+/.vscode/
+/*.log
+
+# İşletim sistemi dosyaları
+.DS_Store
+Thumbs.db
+
+# Çeşitli kullanıcıya özgü dosyalar
+*.env
+*.properties
+*.bak
+*.swp
+*.tmp
+
+# IntelliJ IDEA
+.idea/
+*.iml
+*.ipr
+*.iws
+
+# Logs
+logs/
+*.log
+*.pid
+
+# Temp
+*.swp
+*.swo
+*.bak
+*.tmp
+
+# OS specific
+.DS_Store
+Thumbs.db
+
+# Spring Boot specific
+/config/
+/db/
+/logs/
+/data/
+/tmp/
+/*.sql
+
+# Bytecode files
+*.class
+
+# Other
+!README.md
+
