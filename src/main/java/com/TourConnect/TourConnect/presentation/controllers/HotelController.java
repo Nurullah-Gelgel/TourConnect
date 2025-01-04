@@ -1,4 +1,53 @@
 package com.TourConnect.TourConnect.presentation.controllers;
 
+import com.TourConnect.TourConnect.application.dtos.HotelDto;
+import com.TourConnect.TourConnect.application.services.HotelService;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
+import java.util.UUID;
+
+@RestController
+@RequestMapping("api/hotel")
 public class HotelController {
+
+    private final HotelService hotelService;
+
+    public HotelController(HotelService hotelService) {
+        this.hotelService = hotelService;
+    }
+
+    @GetMapping("/getAllHotels")
+    public ResponseEntity<List<HotelDto>> getHotels() {
+        return ResponseEntity.ok(hotelService.getAllHotels());
+    }
+
+    @GetMapping("/getHotelById")
+    public ResponseEntity<HotelDto> getHotelById(UUID id) {
+        return ResponseEntity.ok(hotelService.getHotelById(id));
+    }
+
+    @PostMapping("/createHotel")
+    public ResponseEntity<HotelDto> createHotel(HotelDto hotelDto) {
+        return ResponseEntity.ok(hotelService.createHotel(hotelDto));
+    }
+
+    @PutMapping("/updateHotel")
+    public ResponseEntity<HotelDto> updateHotel(UUID id, HotelDto hotelDto) {
+        return ResponseEntity.ok(hotelService.update(id, hotelDto));
+    }
+
+    @DeleteMapping("/deleteHotel")
+    public ResponseEntity<Void> deleteHotel(UUID id) {
+        hotelService.deleteHotel(id);
+        return ResponseEntity.noContent().build();
+    }
+
+    @DeleteMapping("/deleteAllHotels")
+    public ResponseEntity<Void> deleteAllHotels() {
+        hotelService.deleteAllHotels();
+        return ResponseEntity.noContent().build();
+    }
+
 }
