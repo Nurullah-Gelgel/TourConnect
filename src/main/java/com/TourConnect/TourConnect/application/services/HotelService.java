@@ -6,6 +6,7 @@ import com.TourConnect.TourConnect.domain.entities.Hotel;
 import com.TourConnect.TourConnect.domain.repositories.HotelRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 import java.util.UUID;
@@ -30,8 +31,9 @@ public class HotelService {
     public HotelDto getHotelById(UUID id) {
         return hotelRepository.findById(id).map(hotelMapper::toDto).orElseThrow(() -> new RuntimeException("Hotel not found"));
     }
-
+    @Transactional
     public HotelDto createHotel(HotelDto hotelDto) {
+        hotelDto.setId(null);
         return hotelMapper.toDto(hotelRepository.save(hotelMapper.toEntity(hotelDto)));
     }
 

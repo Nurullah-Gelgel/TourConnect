@@ -29,7 +29,7 @@ public class TourController {
     }
 
     @PostMapping("/createTour")
-    public ResponseEntity<TourDto> createTour(TourDto tourDto) {
+    public ResponseEntity<TourDto> createTour(@RequestBody TourDto tourDto) {
         return ResponseEntity.ok(tourService.createTour(tourDto));
     }
 

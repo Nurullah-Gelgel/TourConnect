@@ -4,6 +4,7 @@ import com.TourConnect.TourConnect.domain.entities.Tour;
 import com.TourConnect.TourConnect.domain.repositories.TourRepository;
 import com.TourConnect.TourConnect.infrastructure.repositories.jpa.JpaTourRepository;
 import lombok.RequiredArgsConstructor;
+
 import org.springframework.stereotype.Component;
 
 import java.util.List;
@@ -22,7 +23,11 @@ public class TourRepositoryImpl implements TourRepository {
 
     @Override
     public Tour save(Tour tour) {
-        return tourRepository.save(tour);
+        try {
+            return tourRepository.save(tour);
+        } catch (Exception e) {
+            throw new RuntimeException("Error saving tour: " + e.getMessage(), e);
+        }
     }
 
     @Override

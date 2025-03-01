@@ -10,9 +10,14 @@ import org.springframework.stereotype.Component;
 @Mapper(componentModel = "spring")
 public interface RoomMapper {
 
+    @Mapping(source = "hotelId", target = "hotel.id")
     Room toEntity(RoomDto roomDto);
+
+    @Mapping(source =    "hotel.id", target = "hotelId")
     RoomDto toDto(Room room);
+
     @Mapping(target = "id", ignore = true)
-    void updateEntity(RoomDto roomDto,@MappingTarget Room room);
+    @Mapping(source = "hotelId", target = "hotel.id")
+    void updateEntity(RoomDto roomDto, @MappingTarget Room room);
 
 }

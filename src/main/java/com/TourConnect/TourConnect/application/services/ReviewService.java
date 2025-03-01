@@ -6,6 +6,7 @@ import com.TourConnect.TourConnect.domain.entities.Review;
 import com.TourConnect.TourConnect.domain.repositories.ReviewRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 import java.util.Optional;
@@ -30,7 +31,9 @@ public class ReviewService {
         return reviewRepository.findById(id).map(reviewMapper::toDto).orElseThrow(() -> new RuntimeException("Review not found"));
     }
 
+    @Transactional
     public ReviewDto createReview(ReviewDto reviewDto) {
+        reviewDto.setId(null);
         Review review = reviewMapper.toEntity(reviewDto);
         Review savedReview = reviewRepository.save(review);
         return reviewMapper.toDto(savedReview);

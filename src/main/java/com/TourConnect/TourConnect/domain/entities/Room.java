@@ -16,7 +16,7 @@ import java.util.UUID;
 public class Room {
 
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.UUID)
     private UUID id;
 
     @Column(name = "room_type")
@@ -41,4 +41,11 @@ public class Room {
     @OneToMany(mappedBy = "room")
     private Set<Reservation> reservations;
 
+    public Hotel getHotel() {
+        return hotel;
+    }
+
+    public void setHotel(Hotel hotel) {
+        this.hotel = hotel;
+    }
 }

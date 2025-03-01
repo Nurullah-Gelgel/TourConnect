@@ -7,6 +7,7 @@ import com.TourConnect.TourConnect.domain.entities.Contact;
 import com.TourConnect.TourConnect.domain.repositories.ContactRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 import java.util.UUID;
@@ -33,7 +34,9 @@ public class ContactService {
         return contactRepository.findById(id).map(contactMapper::toDto).orElseThrow(() -> new RuntimeException("Contact not found"));
     }
 
+    @Transactional
     public ContactDto createContact(ContactDto contactDto) {
+        contactDto.setId(null);
         return contactMapper.toDto(contactRepository.save(contactMapper.toEntity(contactDto)));
     }
 

@@ -7,6 +7,7 @@ import com.TourConnect.TourConnect.domain.entities.Room;
 import com.TourConnect.TourConnect.domain.repositories.RoomRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 import java.util.UUID;
@@ -42,12 +43,16 @@ public class RoomService {
 
     }
 
-
+    @Transactional
     public RoomDto createRoom(RoomDto roomDto) {
-
-            Room room = roomMapper.toEntity(roomDto);
-            Room savedRoom = roomRepository.save(room);
+        roomDto.setId(null);
+        Room room = roomMapper.toEntity(roomDto);
+        Room savedRoom = roomRepository.save(room);
+        try {
             return roomMapper.toDto(savedRoom);
+        } catch (Exception e) { // catch any exception
+            throw new RuntimeException("Room not created"+e.getMessage());
+        }
     }
 
     public void deleteRoom(UUID id) {

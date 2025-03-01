@@ -16,7 +16,7 @@ import java.util.UUID;
 public class Hotel {
 
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.UUID)
     private UUID id;
 
     @Column(nullable = false,name = "hotel_name")

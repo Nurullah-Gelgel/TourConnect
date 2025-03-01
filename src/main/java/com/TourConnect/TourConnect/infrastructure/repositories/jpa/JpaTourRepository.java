@@ -8,5 +8,5 @@ import org.springframework.stereotype.Repository;
 
 
 @Repository
-public interface JpaTourRepository extends JpaRepository<Tour, UUID> {
+public interface    JpaTourRepository extends JpaRepository<Tour, UUID> {
 }

@@ -6,6 +6,7 @@ import com.TourConnect.TourConnect.domain.entities.Tour;
 import com.TourConnect.TourConnect.domain.repositories.TourRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 import java.util.Optional;
@@ -31,7 +32,11 @@ public class TourService {
         return tourRepository.findById(id).map(tourMapper::toDto).orElseThrow(() -> new RuntimeException("Tour not found"));
     }
 
+
+    @Transactional
     public TourDto createTour(TourDto tourDto) {
+        // ID'yi null olarak ayarla
+        tourDto.setId(null);
 
         Tour tour = tourMapper.toEntity(tourDto);
         Tour savedTour = tourRepository.save(tour);

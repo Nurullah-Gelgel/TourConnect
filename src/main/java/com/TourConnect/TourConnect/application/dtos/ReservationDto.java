@@ -23,5 +23,5 @@ public class ReservationDto {
 
     private UUID hotelId;
     private UUID userId;
-    private UUID roomID;
+    private UUID roomId;
 }

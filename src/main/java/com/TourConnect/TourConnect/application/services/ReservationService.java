@@ -6,6 +6,7 @@ import com.TourConnect.TourConnect.domain.entities.Reservation;
 import com.TourConnect.TourConnect.domain.repositories.ReservationRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 import java.util.UUID;
@@ -30,7 +31,9 @@ public class ReservationService {
         return reservationRepository.findById(id).map(reservationMapper::toDto).orElseThrow(() -> new RuntimeException("Reservation not found"));
     }
 
-    public ReservationDto createReservation(ReservationDto reservationDto) {
+    @Transactional
+    public ReservationDto createReservation(ReservationDto reservationDto) {    
+        reservationDto.setId(null);
         return reservationMapper.toDto(reservationRepository.save(reservationMapper.toEntity(reservationDto)));
     }
 

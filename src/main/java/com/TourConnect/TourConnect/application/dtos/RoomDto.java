@@ -10,13 +10,11 @@ import java.util.UUID;
 @AllArgsConstructor
 @NoArgsConstructor
 public class RoomDto {
-
-    private UUID Id;
+    private UUID id;
     private String roomType;
     private String roomDescription;
     private Integer roomCapacity;
     private Double roomPrice;
     private String roomStatus;
     private UUID hotelId;
-
 }

@@ -24,7 +24,7 @@ public class HotelController {
     }
 
     @GetMapping("/getHotelById")
-    public ResponseEntity<HotelDto> getHotelById(UUID id) {
+    public ResponseEntity<HotelDto> getHotelById(@RequestParam UUID id) {
         return ResponseEntity.ok(hotelService.getHotelById(id));
     }
 
@@ -34,12 +34,12 @@ public class HotelController {
     }
 
     @PutMapping("/updateHotel")
-    public ResponseEntity<HotelDto> updateHotel(UUID id, HotelDto hotelDto) {
+    public ResponseEntity<HotelDto> updateHotel(@RequestParam UUID id, @RequestBody HotelDto hotelDto) {
         return ResponseEntity.ok(hotelService.update(id, hotelDto));
     }
 
     @DeleteMapping("/deleteHotel")
-    public ResponseEntity<Void> deleteHotel(UUID id) {
+    public ResponseEntity<Void> deleteHotel(@RequestParam UUID id) {
         hotelService.deleteHotel(id);
         return ResponseEntity.noContent().build();
     }

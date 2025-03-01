@@ -33,6 +33,7 @@ public class UserService {
     }
 
     public UsersDto createUser(UsersDto userDto) {
+        userDto.setId(null);
         Users user = usersMapper.toEntity(userDto);
         Users savedUser = userRepository.save(user);
         return usersMapper.toDto(savedUser);
