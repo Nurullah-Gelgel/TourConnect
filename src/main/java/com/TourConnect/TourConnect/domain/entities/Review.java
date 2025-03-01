@@ -33,7 +33,7 @@ public class Review {
     private Users users;
 
     @ManyToOne
-    @JoinColumn(name = "hotel_id", nullable = false)
+    @JoinColumn(name = "hotelId", nullable = false)
     private Hotel hotel;
 
 

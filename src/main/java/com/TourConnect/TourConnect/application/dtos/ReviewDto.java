@@ -17,6 +17,6 @@ public class ReviewDto {
     private Integer rating;
     private LocalDate date;
     private UUID userId;
-    private UUID hotel_id;
+    private UUID hotelId;
 
 }

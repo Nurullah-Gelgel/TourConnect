@@ -10,9 +10,12 @@ import org.springframework.stereotype.Component;
 @Mapper(componentModel = "spring")
 public interface ContactMapper {
 
+    @Mapping(source = "userId", target = "users.id")
     Contact toEntity(ContactDto contactDto);
+    @Mapping(source =    "users.id", target = "userId")
     ContactDto toDto(Contact contact);
 
+    @Mapping(source = "userId", target = "users.id")
     @Mapping(target = "id", ignore = true)
     void updateEntity(ContactDto contactDto,@MappingTarget Contact contact);
 }
