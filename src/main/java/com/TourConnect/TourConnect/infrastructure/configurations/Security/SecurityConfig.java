@@ -1,45 +1,48 @@
 package com.TourConnect.TourConnect.infrastructure.configurations.Security;
 
+import com.TourConnect.TourConnect.infrastructure.jwt.JwtAuthenticationFilter;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
-import org.springframework.security.core.userdetails.User;
-import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.security.core.userdetails.UserDetailsService;
-import org.springframework.security.provisioning.InMemoryUserDetailsManager;
+import org.springframework.security.config.http.SessionCreationPolicy;
+
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
+import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
 @Configuration
 @EnableWebSecurity
 public class SecurityConfig {
 
-    @Bean
-    public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
-        http
-                .csrf(csrf -> csrf.disable())  // CSRF korumasını devre dışı bırak
-                .authorizeHttpRequests(auth -> auth
-                        // Swagger UI ve API docs için gerekli path'lere izin ver
-                        .requestMatchers("/v3/api-docs/**",
-                                       "/swagger-ui/**",
-                                       "/swagger-ui.html",
-                                       "/api/**").permitAll()  // Users API'lerine geçici olarak tam erişim
-                        .anyRequest().authenticated()
-                )
-                .formLogin(form -> form.permitAll())
-                .logout(logout -> logout.permitAll());
+    private final JwtAuthenticationFilter jwtAuthenticationFilter;
 
-        return http.build();
+    public SecurityConfig(JwtAuthenticationFilter jwtAuthenticationFilter) {
+        this.jwtAuthenticationFilter = jwtAuthenticationFilter;
+    }
+    @Bean
+    public PasswordEncoder passwordEncoder() {
+        return new BCryptPasswordEncoder();
     }
 
     @Bean
-    public UserDetailsService userDetailsService() {
-        UserDetails user = User.withDefaultPasswordEncoder()
-                .username("admin")
-                .password("1234")
-                .roles("ADMIN")
-                .build();
+    public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
+        http
+                .csrf(csrf -> csrf.disable())  // CSRF korumasını kapat
+                .authorizeHttpRequests(auth -> auth
+                        .requestMatchers(
+                                "/swagger-ui/**",
+                                "/v3/api-docs/**",
+                                "/api/auth/login","/api/users/createUser"
+                        ).permitAll()  // Swagger ve kimlik doğrulama endpoint'lerine izin ver
+                        .anyRequest().authenticated()  // Diğer tüm istekleri yetkilendir
+                )
+                .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS));
 
-        return new InMemoryUserDetailsManager(user);
+        // JWT filtresini ekle
+        http.addFilterBefore(jwtAuthenticationFilter, UsernamePasswordAuthenticationFilter.class);
+
+        return http.build();
     }
 }

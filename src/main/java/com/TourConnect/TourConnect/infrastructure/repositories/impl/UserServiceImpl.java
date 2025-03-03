@@ -3,7 +3,6 @@ package com.TourConnect.TourConnect.infrastructure.repositories.impl;
 import com.TourConnect.TourConnect.domain.entities.Users;
 import com.TourConnect.TourConnect.domain.repositories.UserRepository;
 import com.TourConnect.TourConnect.infrastructure.repositories.jpa.JpaUserRepository;
-import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
@@ -20,8 +19,10 @@ public class UserServiceImpl implements UserRepository {
     }
 
     @Override
-    public Users findByUsername(String username) {
-        return null;
+    public Optional<Users> findByUsername(String username) {
+        return jpaUserRepository.findAll().stream()
+                .filter(user -> user.getName().equals(username))
+                .findFirst();
     }
 
     @Override

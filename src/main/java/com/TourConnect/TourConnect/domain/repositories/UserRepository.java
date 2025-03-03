@@ -4,12 +4,11 @@ import com.TourConnect.TourConnect.domain.entities.Users;
 
 import java.util.List;
 import java.util.Optional;
-import java.util.Set;
 import java.util.UUID;
 
 public interface UserRepository {
 
-  Users findByUsername(String username);
+  Optional<Users> findByUsername(String username);
   Users findByEmail(String email);
   Users findByUsernameOrEmail(String username, String email);
   Optional<Users> findById(UUID id);

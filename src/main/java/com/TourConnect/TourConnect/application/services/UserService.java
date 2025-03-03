@@ -5,6 +5,7 @@ import com.TourConnect.TourConnect.application.mappers.UsersMapper;
 import com.TourConnect.TourConnect.domain.entities.Users;
 import com.TourConnect.TourConnect.domain.repositories.UserRepository;
 import lombok.RequiredArgsConstructor;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -18,10 +19,13 @@ public class UserService {
 
     private final UserRepository userRepository;
     private final UsersMapper usersMapper;
+    private final PasswordEncoder passwordEncoder;
 
-    public UserService(UserRepository userRepository, UsersMapper usersMapper) {
+
+    public UserService(UserRepository userRepository, UsersMapper usersMapper, PasswordEncoder passwordEncoder){
         this.userRepository = userRepository;
         this.usersMapper = usersMapper;
+        this.passwordEncoder = passwordEncoder;
     }
 
     public List<UsersDto> getAllUsers() {
@@ -35,6 +39,10 @@ public class UserService {
     public UsersDto createUser(UsersDto userDto) {
         userDto.setId(null);
         Users user = usersMapper.toEntity(userDto);
+
+        // Şifre hashleme
+        user.setPassword(passwordEncoder.encode(user.getPassword()));
+
         Users savedUser = userRepository.save(user);
         return usersMapper.toDto(savedUser);
     }
@@ -57,9 +65,8 @@ public class UserService {
 
 
     public Users getUsersByUsername(String username) {
-
-        return userRepository.findByUsername(username);
-    }
+        return userRepository.findByUsername(username).orElseThrow(() -> new RuntimeException("User not found"));
+        }
 
     public Users getUsersByEmail(String email) {
         return userRepository.findByEmail(email);
