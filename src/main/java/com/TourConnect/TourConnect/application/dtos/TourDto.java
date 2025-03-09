@@ -1,26 +1,27 @@
-package com.TourConnect.TourConnect.application.dtos;
+    package com.TourConnect.TourConnect.application.dtos;
 
-import java.time.LocalDate;
-import java.util.UUID;
-import jakarta.persistence.*;
-import lombok.*;
+    import java.time.LocalDate;
+    import java.util.UUID;
+    import jakarta.persistence.*;
+    import lombok.*;
 
-@Builder
-@Getter
-@Setter
-@AllArgsConstructor
-@NoArgsConstructor
-public class TourDto {
+    @Builder
+    @Getter
+    @Setter
+    @AllArgsConstructor
+    @NoArgsConstructor
+    public class TourDto {
 
-    private UUID id;
-    private String tourName;
-    private String tourStartAddress;
-    private String tourEndAddress;
-    private Double price;
-    private Integer participantCount;
-    private LocalDate startDate;
-    private LocalDate endDate;
-    private Integer starRating;
-    private String phone;
+        private UUID id;
+        private String tourName;
+        private String tourStartAddress;
+        private String tourEndAddress;
+        private Double price;
+        private String photoUrl;
+        private Integer participantCount;
+        private LocalDate startDate;
+        private LocalDate endDate;
+        private Integer starRating;
+        private String phone;
 
-}
+    }

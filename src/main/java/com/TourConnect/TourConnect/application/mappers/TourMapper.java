@@ -7,7 +7,7 @@ import org.mapstruct.Mapping;
 import org.mapstruct.MappingTarget;
 import org.springframework.stereotype.Component;
 
-@Mapper(componentModel = "spring")
+    @Mapper(componentModel = "spring")
 public interface TourMapper {
 
     Tour toEntity(TourDto tourDto);

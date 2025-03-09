@@ -31,6 +31,9 @@ import java.util.UUID;
     @Column(name = "price")
     private Double price;
 
+    @Column(name = "photo_url")
+    private String photoUrl;
+
     @Column(name = "participant_count")
     private Integer participantCount;
 
