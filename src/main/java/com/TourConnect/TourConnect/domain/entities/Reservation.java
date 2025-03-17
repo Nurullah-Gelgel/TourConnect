@@ -52,4 +52,8 @@ public class Reservation {
     @JoinColumn(name = "roomId", nullable = false)
     private Room room;
 
+    @OneToOne(mappedBy = "reservation", cascade = CascadeType.ALL)
+    private Payment payment;
+
+
 }
