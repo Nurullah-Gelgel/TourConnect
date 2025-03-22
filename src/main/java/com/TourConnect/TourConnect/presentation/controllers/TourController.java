@@ -18,12 +18,12 @@ public class TourController {
         this.tourService = tourService;
     }
 
-    @GetMapping("/getAllTours")
+    @GetMapping("public/getAllTours")
     public ResponseEntity<List<TourDto>> getTours() {
         return ResponseEntity.ok(tourService.getAllTours());
     }
 
-    @GetMapping("/getTourById")
+    @GetMapping("public/getTourById")
     public ResponseEntity<TourDto> getTourById(UUID id) {
         return ResponseEntity.ok(tourService.getTourById(id));
     }

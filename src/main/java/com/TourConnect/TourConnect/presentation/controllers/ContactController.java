@@ -18,12 +18,12 @@ public class ContactController {
         this.contactService = contactService;
     }
 
-    @GetMapping("/getAllContacts")
+    @GetMapping("public/getAllContacts")
     public ResponseEntity<List<ContactDto>> getContacts() {
         return ResponseEntity.ok(contactService.getAllContacts());
     }
 
-    @GetMapping("/getContactById")
+    @GetMapping("public/getContactById")
     public ResponseEntity<ContactDto> getContactById(UUID id) {
         return ResponseEntity.ok(contactService.getContactById(id));
     }

@@ -18,12 +18,12 @@ public class TouristPlaceController {
         this.touristPlaceService = touristPlaceService;
     }
 
-    @GetMapping("/getAllPlaces")
+    @GetMapping("public/getAllPlaces")
     public ResponseEntity<List<TouristPlaceDto>> getPlace() {
         return ResponseEntity.ok(touristPlaceService.getAllPlaces());
     }
 
-    @GetMapping("/getPlaceById")
+    @GetMapping("public/getPlaceById")
     public ResponseEntity<TouristPlaceDto> getPlaceById(UUID id) {
         return ResponseEntity.ok(touristPlaceService.getPlaceById(id));
     }

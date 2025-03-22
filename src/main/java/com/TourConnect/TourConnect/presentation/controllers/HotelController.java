@@ -18,12 +18,12 @@ public class HotelController {
         this.hotelService = hotelService;
     }
 
-    @GetMapping("/getAllHotels")
+    @GetMapping("public/getAllHotels")
     public ResponseEntity<List<HotelDto>> getHotels() {
         return ResponseEntity.ok(hotelService.getAllHotels());
     }
 
-    @GetMapping("/getHotelById")
+    @GetMapping("public/getHotelById")
     public ResponseEntity<HotelDto> getHotelById(@RequestParam UUID id) {
         return ResponseEntity.ok(hotelService.getHotelById(id));
     }

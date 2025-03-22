@@ -19,27 +19,27 @@ public class ReviewController {
         this.reviewService = reviewService;
     }
 
-    @GetMapping("/getAllReviews")
+    @GetMapping("public/getAllReviews")
     public ResponseEntity<List<ReviewDto>> getReviews() {
         return ResponseEntity.ok(reviewService.getAllReviews());
     }
 
-    @GetMapping("/getReviewById")
+    @GetMapping("public/getReviewById")
     public ResponseEntity<ReviewDto> getReviewById(UUID id) {
         return ResponseEntity.ok(reviewService.getReviewById(id));
     }
 
-    @PostMapping("/createReview")
+    @PostMapping("public/createReview")
     public ResponseEntity<ReviewDto> createReview(ReviewDto reviewDto) {
         return ResponseEntity.ok(reviewService.createReview(reviewDto));
     }
 
-    @PutMapping("/updateReview")
+    @PutMapping("public/updateReview")
     public ResponseEntity<ReviewDto> updateReview(UUID id, ReviewDto reviewDto) {
         return ResponseEntity.ok(reviewService.update(id, reviewDto));
     }
 
-    @DeleteMapping("/deleteReview")
+    @DeleteMapping("public/deleteReview")
     public ResponseEntity<Void> deleteReview(UUID id) {
         reviewService.deleteReview(id);
         return ResponseEntity.noContent().build();

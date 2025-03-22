@@ -18,27 +18,27 @@ public class ReservationController {
         this.reservationService = reservationService;
     }
 
-    @GetMapping("/getAllReservations")
+    @GetMapping("public/getAllReservations")
     public ResponseEntity<List<ReservationDto>> getReservations() {
         return ResponseEntity.ok(reservationService.getAllReservations());
     }
 
-    @GetMapping("/getReservationById")
+    @GetMapping("public/getReservationById")
     public ResponseEntity<ReservationDto> getReservationById(UUID id) {
         return ResponseEntity.ok(reservationService.getReservationById(id));
     }
 
-    @PostMapping("/createReservation")
+    @PostMapping("public/createReservation")
     public ResponseEntity<ReservationDto> createReservation(ReservationDto reservationDto) {
         return ResponseEntity.ok(reservationService.createReservation(reservationDto));
     }
 
-    @PutMapping("/updateReservation")
+    @PutMapping("public/updateReservation")
     public ResponseEntity<ReservationDto> updateReservation(UUID id, ReservationDto reservationDto) {
         return ResponseEntity.ok(reservationService.update(id, reservationDto));
     }
 
-    @DeleteMapping("/deleteReservation")
+    @DeleteMapping("public/deleteReservation")
     public ResponseEntity<Void> deleteReservation(UUID id) {
         reservationService.deleteReservation(id);
         return ResponseEntity.noContent().build();

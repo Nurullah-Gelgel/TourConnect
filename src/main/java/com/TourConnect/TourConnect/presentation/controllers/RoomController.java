@@ -18,12 +18,12 @@ public class RoomController {
         this.roomService = roomService;
     }
 
-    @GetMapping("/getAllRooms")
+    @GetMapping("public/getAllRooms")
     public ResponseEntity<List<RoomDto>> getRooms() {
         return ResponseEntity.ok(roomService.getAllRooms());
     }
 
-    @GetMapping("/getRoomById")
+    @GetMapping("public/getRoomById")
     public ResponseEntity<RoomDto> getRoomById(UUID id) {
         return ResponseEntity.ok(roomService.getRoomById(id));
     }
