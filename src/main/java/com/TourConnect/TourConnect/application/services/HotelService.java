@@ -37,6 +37,10 @@ public class HotelService {
         return hotelMapper.toDto(hotelRepository.save(hotelMapper.toEntity(hotelDto)));
     }
 
+    public Double getHotelPrice(UUID id) {
+        return hotelRepository.findById(id).map(Hotel::getAdvancePayment).orElseThrow(() -> new RuntimeException("Hotel not found"));
+    }
+
     public HotelDto update(UUID id, HotelDto hotelDto) {
         Hotel hotelToUpdate = hotelRepository.findById(id).orElseThrow(() -> new RuntimeException("Hotel not found"));
         hotelMapper.updateEntity(hotelDto, hotelToUpdate);

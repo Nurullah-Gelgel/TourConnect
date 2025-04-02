@@ -38,8 +38,7 @@ public class Room {
     @JoinColumn(name = "hotelId", nullable = false)
     private Hotel hotel;
 
-    @OneToMany(mappedBy = "room")
-    private Set<Reservation> reservations;
+
 
     public Hotel getHotel() {
         return hotel;

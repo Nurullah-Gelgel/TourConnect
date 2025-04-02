@@ -2,9 +2,13 @@ package com.TourConnect.TourConnect.application.services;
 
 import com.TourConnect.TourConnect.application.dtos.ReservationDto;
 import com.TourConnect.TourConnect.application.mappers.ReservationMapper;
+import com.TourConnect.TourConnect.domain.entities.Hotel;
 import com.TourConnect.TourConnect.domain.entities.Reservation;
+import com.TourConnect.TourConnect.domain.entities.Users;
+import com.TourConnect.TourConnect.domain.repositories.HotelRepository;
 import com.TourConnect.TourConnect.domain.repositories.ReservationRepository;
-import lombok.RequiredArgsConstructor;
+
+import com.TourConnect.TourConnect.domain.repositories.UserRepository;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -17,10 +21,14 @@ public class ReservationService {
 
     private final ReservationRepository reservationRepository;
     private final ReservationMapper reservationMapper;
+    private final HotelRepository hotelRepository;
+    private final UserRepository usersRepository;
 
-    public ReservationService(ReservationRepository reservationRepository, ReservationMapper reservationMapper) {
+    public ReservationService(ReservationRepository reservationRepository, ReservationMapper reservationMapper, HotelRepository hotelRepository, UserRepository usersRepository) {
         this.reservationRepository = reservationRepository;
         this.reservationMapper = reservationMapper;
+        this.hotelRepository = hotelRepository;
+        this.usersRepository = usersRepository;
     }
 
     public List<ReservationDto> getAllReservations() {
@@ -28,14 +36,32 @@ public class ReservationService {
     }
 
     public ReservationDto getReservationById(UUID id) {
-        return reservationRepository.findById(id).map(reservationMapper::toDto).orElseThrow(() -> new RuntimeException("Reservation not found"));
-    }
+        return reservationRepository.findById(id)
+                .map(reservation -> {
+                    ReservationDto dto = reservationMapper.toDto(reservation);
+                    dto.setAdvancePayment(reservation.getHotel().getAdvancePayment()); // Otelden advancePayment çekildi
+                    return dto;
+                })
+                .orElseThrow(() -> new RuntimeException("Reservation not found"));    }
 
     @Transactional
-    public ReservationDto createReservation(ReservationDto reservationDto) {    
-        reservationDto.setId(null);
-        return reservationMapper.toDto(reservationRepository.save(reservationMapper.toEntity(reservationDto)));
+    public ReservationDto createReservation(ReservationDto reservationDto) {
+        reservationDto.setId(null); // Yeni kayıt olduğu için ID sıfırlanıyor
+
+        Reservation reservation = reservationMapper.toEntity(reservationDto);
+
+        if (reservationDto.getUserId() != null) {
+            Users existingUser = usersRepository.findById(reservationDto.getUserId())
+                    .orElseThrow(() -> new RuntimeException("User not found"));
+            reservation.setUsers(existingUser);
+        } else {
+            reservation.setUsers(null); // User ID null ise ilişkiyi boş bırak
+        }
+
+        Reservation savedReservation = reservationRepository.save(reservation);
+        return reservationMapper.toDto(savedReservation);
     }
+
 
     public ReservationDto update(UUID id, ReservationDto reservationDto) {
         Reservation reservationToUpdate = reservationRepository.findById(id).orElseThrow(()->new RuntimeException("Reservation not found"));

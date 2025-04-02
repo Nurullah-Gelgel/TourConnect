@@ -28,6 +28,9 @@ public class Hotel {
     @Column(name = "hotel_city")
     private String hotelCity;
 
+    @Column(name = "advance_payment",nullable = false)
+    private Double advancePayment;
+
     @Column(name = "hotel_state")
     private String district;
 

@@ -29,7 +29,7 @@ public class HotelController {
     }
 
     @PostMapping("/createHotel")
-    public ResponseEntity<HotelDto> createHotel(HotelDto hotelDto) {
+    public ResponseEntity<HotelDto> createHotel(@RequestBody HotelDto hotelDto) {
         return ResponseEntity.ok(hotelService.createHotel(hotelDto));
     }
 

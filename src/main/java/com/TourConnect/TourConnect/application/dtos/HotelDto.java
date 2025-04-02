@@ -16,6 +16,7 @@ public class HotelDto {
     private String hotelName;
     private String hotelAddress;
     private String hotelCity;
+    private Double advancePayment;
     private String district;
     private String photoUrl;
     private Integer starRating;
