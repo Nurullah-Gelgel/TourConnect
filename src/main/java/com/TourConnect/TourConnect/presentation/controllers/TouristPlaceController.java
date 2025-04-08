@@ -34,8 +34,8 @@ public class TouristPlaceController {
     }
 
     @PutMapping("/updatePlace")
-    public ResponseEntity<TouristPlaceDto> updatePlace(UUID id, TouristPlaceDto tourDto) {
-        return ResponseEntity.ok(touristPlaceService.update(id, tourDto));
+    public ResponseEntity<TouristPlaceDto> updatePlace(@RequestBody TouristPlaceDto tourDto) {
+        return ResponseEntity.ok(touristPlaceService.update(tourDto.getId(), tourDto));
     }
 
     @DeleteMapping("/deletePlace")

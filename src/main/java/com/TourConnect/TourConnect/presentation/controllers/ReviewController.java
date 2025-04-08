@@ -30,13 +30,13 @@ public class ReviewController {
     }
 
     @PostMapping("public/createReview")
-    public ResponseEntity<ReviewDto> createReview(ReviewDto reviewDto) {
+    public ResponseEntity<ReviewDto> createReview(@RequestBody ReviewDto reviewDto) {
         return ResponseEntity.ok(reviewService.createReview(reviewDto));
     }
 
     @PutMapping("public/updateReview")
-    public ResponseEntity<ReviewDto> updateReview(UUID id, ReviewDto reviewDto) {
-        return ResponseEntity.ok(reviewService.update(id, reviewDto));
+    public ResponseEntity<ReviewDto> updateReview(@RequestBody ReviewDto reviewDto) {
+        return ResponseEntity.ok(reviewService.update(reviewDto.getId(), reviewDto));
     }
 
     @DeleteMapping("public/deleteReview")

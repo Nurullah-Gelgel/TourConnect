@@ -34,8 +34,8 @@ public class ReservationController {
     }
 
     @PutMapping("public/updateReservation")
-    public ResponseEntity<ReservationDto> updateReservation(UUID id, ReservationDto reservationDto) {
-        return ResponseEntity.ok(reservationService.update(id, reservationDto));
+    public ResponseEntity<ReservationDto> updateReservation(@RequestBody ReservationDto reservationDto) {
+        return ResponseEntity.ok(reservationService.update(reservationDto.getId(), reservationDto));
     }
 
     @DeleteMapping("public/deleteReservation")

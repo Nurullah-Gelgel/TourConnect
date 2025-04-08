@@ -29,13 +29,13 @@ public class ContactController {
     }
 
     @PostMapping("/createContact")
-    public ResponseEntity<ContactDto> createContact(ContactDto contactDto) {
+    public ResponseEntity<ContactDto> createContact(@RequestBody ContactDto contactDto) {
         return ResponseEntity.ok(contactService.createContact(contactDto));
     }
 
     @PutMapping("/updateContact")
-    public ResponseEntity<ContactDto> updateContact(UUID id, ContactDto contactDto) {
-        return ResponseEntity.ok(contactService.update(id, contactDto));
+    public ResponseEntity<ContactDto> updateContact(@RequestBody ContactDto contactDto) {
+        return ResponseEntity.ok(contactService.update(contactDto.getId(), contactDto));
     }
 
     @DeleteMapping("/deleteContact")

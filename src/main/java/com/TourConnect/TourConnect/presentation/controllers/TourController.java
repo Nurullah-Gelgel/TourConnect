@@ -34,8 +34,8 @@ public class TourController {
     }
 
     @PutMapping("/updateTour")
-    public ResponseEntity<TourDto> updateTour(UUID id, TourDto tourDto) {
-        return ResponseEntity.ok(tourService.update(id, tourDto));
+    public ResponseEntity<TourDto> updateTour(@RequestBody TourDto tourDto) {
+        return ResponseEntity.ok(tourService.update(tourDto.getId(), tourDto));
     }
 
     @DeleteMapping("/deleteTour")

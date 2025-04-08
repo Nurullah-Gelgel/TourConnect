@@ -11,21 +11,16 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 @Mapper(componentModel = "spring")
+public interface UsersMapper {
 
-public abstract class UsersMapper {
+    // Create işlemi için
+    @Mapping(target = "id", ignore = true) // id'yi set etme (null kalacak)
+    Users toEntity(UsersDto dto);
 
-    @Autowired
-    protected UserRepository usersRepository;
+    // DTO'ya dönüştür
+    UsersDto toDto(Users user);
 
-    public Users toEntity(UsersDto usersDto) {
-        if (usersDto == null || usersDto.getId() == null) {
-            return null;
-        }
-        return usersRepository.findById(usersDto.getId()).orElse(null);
-    }
-
-    public abstract UsersDto toDto(Users users);
-
-    @Mapping(target = "id", ignore = true)
-    public abstract void updateEntity(UsersDto usersDto, @MappingTarget Users users);
+    // Update işlemi için (mapstruct bunu zaten doğru yapar)
+    @Mapping(target = "id", ignore = true) // id güncellenmesin
+    void updateEntity(UsersDto dto, @MappingTarget Users user);
 }

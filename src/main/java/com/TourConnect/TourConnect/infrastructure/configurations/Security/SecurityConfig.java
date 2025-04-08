@@ -46,7 +46,7 @@ public class SecurityConfig {
                                 "/v3/api-docs/**",
                                 "/api/auth/login",
                                 "/api/users/createUser",
-                                "/api/payments/create",
+                                "/api/payments/**",
                                 "api/hotel/public/**",
                                 "api/tour/public/**",
                                 "/api/contact/public/**",
