@@ -4,6 +4,7 @@ import jakarta.persistence.*;
 import lombok.*;
 
 import java.time.LocalDate;
+import java.time.LocalTime;
 import java.util.List;
 import java.util.UUID;
 
@@ -40,10 +41,10 @@ public class TouristPlace {
     private List<String> facilities; // WC, Kafe, Otopark vs.
 
     @Column(nullable = false, name = "visit_open_time")
-    private LocalDate visitOpenTime;  // Açılış Saati
+    private LocalTime visitOpenTime;  // Açılış Saati
 
     @Column(nullable = false, name = "visit_close_time")
-    private LocalDate visitCloseTime; // Kapanış Saati
+    private LocalTime visitCloseTime; // Kapanış Saati
 
     @Column(nullable = false, name = "visit_days")
     private List<String> visitDays; // Ziyaret Günleri

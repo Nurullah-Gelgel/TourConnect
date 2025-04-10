@@ -4,7 +4,8 @@ package com.TourConnect.TourConnect.application.dtos;
 import jakarta.persistence.*;
 import lombok.*;
 
-import java.time.LocalDate;
+
+import java.time.LocalTime;
 import java.util.List;
 import java.util.UUID;
 
@@ -31,9 +32,9 @@ public class TouristPlaceDto {
 
     private List<String> facilities; // WC, Kafe, Otopark vs.
 
-    private LocalDate visitOpenTime;  // Açılış Saati
+    private LocalTime visitOpenTime;  // Açılış Saati
 
-    private LocalDate visitCloseTime; // Kapanış Saati
+    private LocalTime visitCloseTime; // Kapanış Saati
 
     private List<String> visitDays; // Ziyaret Günleri
 

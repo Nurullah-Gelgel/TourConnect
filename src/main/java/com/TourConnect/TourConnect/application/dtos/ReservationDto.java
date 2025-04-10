@@ -12,7 +12,7 @@ import java.util.UUID;
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-public class ReservationDto {
+public class  ReservationDto {
 
 
     private UUID id;

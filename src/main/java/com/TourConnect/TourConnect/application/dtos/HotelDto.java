@@ -10,18 +10,18 @@ import lombok.*;
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-public class HotelDto {
+            public class HotelDto {
 
-    private UUID id;
-    private String hotelName;
-    private String hotelAddress;
-    private String hotelCity;
-    private Double advancePayment;
-    private String district;
-    private String photoUrl;
-    private Integer starRating;
-    private String phone;
-    private String apiUrl;
-    private String apiKey;
+                private UUID id;
+                private String hotelName;
+                private String hotelAddress;
+                private String hotelCity;
+                private Double advancePayment;
+                private String district;
+                private String photoUrl;
+                private Integer starRating;
+                private String phone;
+                private String apiUrl;
+                private String apiKey;
 
-}
+            }

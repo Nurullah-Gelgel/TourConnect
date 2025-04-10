@@ -44,7 +44,7 @@ public class TouristPlaceService {
 
     public TouristPlaceDto update(UUID id, TouristPlaceDto tourDto) {
 
-        TouristPlace tourToUpdate = touristPlaceRepository.findById(id).orElseThrow(() -> new RuntimeException("Tour not found"));
+            TouristPlace tourToUpdate = touristPlaceRepository.findById(id).orElseThrow(() -> new RuntimeException("Tour not found"));
         touristPlaceMapper.updateEntity(tourDto, tourToUpdate);
         return touristPlaceMapper.toDto(touristPlaceRepository.save(tourToUpdate));
 
