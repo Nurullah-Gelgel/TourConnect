@@ -29,6 +29,9 @@ public class Reservation {
     @Column(name = "reservation_guests", nullable = false)
     private Integer reservationGuests;
 
+    @Column(name = "pnr_code", unique = true, nullable = false)
+    private String pnrCode;
+
     @Column(name = "check_in", nullable = false)
     private LocalDate checkIn;
 

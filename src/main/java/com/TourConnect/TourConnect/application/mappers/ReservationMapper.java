@@ -1,6 +1,7 @@
 package com.TourConnect.TourConnect.application.mappers;
 
 import com.TourConnect.TourConnect.application.dtos.ReservationDto;
+import com.TourConnect.TourConnect.application.dtos.ReservationResponseDto;
 import com.TourConnect.TourConnect.domain.entities.Reservation;
 import com.TourConnect.TourConnect.domain.entities.Users;
 import com.TourConnect.TourConnect.domain.repositories.UserRepository;
@@ -27,6 +28,9 @@ public abstract class ReservationMapper {
     @Mapping(source = "hotel.id", target = "hotelId")
     @Mapping(source = "users.id", target = "userId")
     public abstract ReservationDto toDto(Reservation reservation);
+
+    @Mapping(source = "hotel.hotelName", target = "hotelName")
+    public abstract ReservationResponseDto toResponse(Reservation reservation);
 
     @Mapping(target = "id", ignore = true)
     @Mapping(source = "hotelId", target = "hotel.id")

@@ -1,6 +1,7 @@
 package com.TourConnect.TourConnect.application.services;
 
 import com.TourConnect.TourConnect.application.dtos.ReservationDto;
+import com.TourConnect.TourConnect.application.dtos.ReservationResponseDto;
 import com.TourConnect.TourConnect.application.mappers.ReservationMapper;
 import com.TourConnect.TourConnect.domain.entities.Hotel;
 import com.TourConnect.TourConnect.domain.entities.Reservation;
@@ -15,6 +16,8 @@ import org.springframework.transaction.annotation.Transactional;
 import java.util.List;
 import java.util.UUID;
 import java.util.stream.Collectors;
+import java.util.Random;
+
 
 @Service
 public class ReservationService {
@@ -50,6 +53,9 @@ public class ReservationService {
 
         Reservation reservation = reservationMapper.toEntity(reservationDto);
 
+        String pnrCode = generatePNRCode();
+        reservation.setPnrCode(pnrCode);
+
         if (reservationDto.getUserId() != null) {
             Users existingUser = usersRepository.findById(reservationDto.getUserId())
                     .orElseThrow(() -> new RuntimeException("User not found"));
@@ -62,6 +68,21 @@ public class ReservationService {
         return reservationMapper.toDto(savedReservation);
     }
 
+    public String generatePNRCode() {
+        String characters = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
+        StringBuilder pnr = new StringBuilder();
+        Random random = new Random();
+        for (int i = 0; i < 6; i++) {
+            pnr.append(characters.charAt(random.nextInt(characters.length())));
+        }
+        return pnr.toString();
+    }
+
+    public ReservationResponseDto getReservationDetailsByPnr(String pnrCode) {
+        Reservation reservation = reservationRepository.findByPnrCode(pnrCode)
+                .orElseThrow(() -> new RuntimeException("Reservation not found"));
+        return reservationMapper.toResponse(reservation);
+    }
 
     public ReservationDto update(UUID id, ReservationDto reservationDto) {
         Reservation reservationToUpdate = reservationRepository.findById(id).orElseThrow(()->new RuntimeException("Reservation not found"));

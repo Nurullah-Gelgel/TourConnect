@@ -25,6 +25,12 @@ public class ReservationRepositoryImpl implements ReservationRepository {
     }
 
     @Override
+    public Optional<Reservation> findByPnrCode(String pnrCode) {
+        return reservationRepository.findByPnrCode(pnrCode);
+    }
+
+
+    @Override
     public Optional<Reservation> findById(UUID id) {
         return reservationRepository.findById(id);
     }

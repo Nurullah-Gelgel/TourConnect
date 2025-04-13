@@ -9,7 +9,7 @@ import java.util.UUID;
 public interface ReservationRepository {
 
     Reservation save(Reservation reservation);
-
+    Optional<Reservation> findByPnrCode(String pnrCode);
 
     Optional<Reservation> findById(UUID id);
 

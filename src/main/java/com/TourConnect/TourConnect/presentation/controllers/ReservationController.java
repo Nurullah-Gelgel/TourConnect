@@ -1,6 +1,7 @@
 package com.TourConnect.TourConnect.presentation.controllers;
 
 import com.TourConnect.TourConnect.application.dtos.ReservationDto;
+import com.TourConnect.TourConnect.application.dtos.ReservationResponseDto;
 import com.TourConnect.TourConnect.application.services.ReservationService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -36,6 +37,11 @@ public class ReservationController {
     @PutMapping("public/updateReservation")
     public ResponseEntity<ReservationDto> updateReservation(@RequestBody ReservationDto reservationDto) {
      return ResponseEntity.ok(reservationService.update(reservationDto.getId(), reservationDto));
+    }
+
+    @GetMapping("public/pnr/{pnrCode}")
+    public ResponseEntity<ReservationResponseDto> getReservationByPnrCode(@PathVariable String pnrCode) {
+        return ResponseEntity.ok(reservationService.getReservationDetailsByPnr(pnrCode));
     }
 
     @DeleteMapping("public/deleteReservation")
