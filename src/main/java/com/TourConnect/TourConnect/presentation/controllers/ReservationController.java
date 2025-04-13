@@ -25,7 +25,7 @@ public class ReservationController {
     }
 
     @GetMapping("public/getReservationById")
-    public ResponseEntity<ReservationDto> getReservationById(UUID id) {
+    public ResponseEntity<ReservationDto> getReservationById(@RequestParam UUID id) {
         return ResponseEntity.ok(reservationService.getReservationById(id));
     }
 
@@ -45,7 +45,7 @@ public class ReservationController {
     }
 
     @DeleteMapping("public/deleteReservation")
-    public ResponseEntity<Void> deleteReservation(UUID id) {
+    public ResponseEntity<Void> deleteReservation(@RequestParam UUID id) {
         reservationService.deleteReservation(id);
         return ResponseEntity.noContent().build();
     }
