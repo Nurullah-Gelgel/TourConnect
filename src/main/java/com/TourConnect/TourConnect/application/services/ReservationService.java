@@ -26,12 +26,14 @@ public class ReservationService {
     private final ReservationMapper reservationMapper;
     private final HotelRepository hotelRepository;
     private final UserRepository usersRepository;
+    private final MailService mailService;
 
-    public ReservationService(ReservationRepository reservationRepository, ReservationMapper reservationMapper, HotelRepository hotelRepository, UserRepository usersRepository) {
+    public ReservationService(ReservationRepository reservationRepository, ReservationMapper reservationMapper, HotelRepository hotelRepository, UserRepository usersRepository, MailService mailService) {
         this.reservationRepository = reservationRepository;
         this.reservationMapper = reservationMapper;
         this.hotelRepository = hotelRepository;
         this.usersRepository = usersRepository;
+        this.mailService = mailService;
     }
 
     public List<ReservationDto> getAllReservations() {
@@ -65,6 +67,12 @@ public class ReservationService {
         }
 
         Reservation savedReservation = reservationRepository.save(reservation);
+
+        mailService.sendReservationConfirmation(
+                savedReservation.getGuestEmail(),
+                savedReservation.getPnrCode()
+        );
+
         return reservationMapper.toDto(savedReservation);
     }
 
