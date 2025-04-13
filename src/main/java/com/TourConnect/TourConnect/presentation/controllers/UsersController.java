@@ -22,17 +22,17 @@ public class UsersController {
         this.userService = userService;
     }
 
-    @GetMapping("/getAllUsers")
+    @GetMapping("public/getAllUsers")
     public ResponseEntity<List<UsersDto>> getUsers() {
         return ResponseEntity.ok(userService.getAllUsers());
     }
 
-    @GetMapping("/getUserById")
+    @GetMapping("public/getUserById")
     public ResponseEntity<UsersDto> getUserById(UUID id) {
         return ResponseEntity.ok(userService.getUserById(id));
     }
 
-    @PostMapping("/createUser")
+    @PostMapping("public/createUser")
     public ResponseEntity<UsersDto> createUser(@RequestBody UsersDto usersDto) {
         return ResponseEntity.ok(userService.createUser(usersDto));
     }
