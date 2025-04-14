@@ -47,8 +47,8 @@ public class SecurityConfig {
                                 "/api/auth/login",
                                 "/api/users/public/**",
                                 "/api/payments/**",
-                                "api/hotel/public/**",
-                                "api/tour/public/**",
+                                "/api/hotel/public/**",
+                                "/api/tour/public/**",
                                 "/api/contact/public/**",
                                 "/api/reservation/public/**"
                         ).permitAll()
