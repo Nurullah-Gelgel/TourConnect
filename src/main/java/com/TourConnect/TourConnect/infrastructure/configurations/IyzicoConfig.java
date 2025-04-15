@@ -1,4 +1,4 @@
-package com.TourConnect.TourConnect.infrastructure.configurations;
+/*package com.TourConnect.TourConnect.infrastructure.configurations;
 
 
 import com.iyzipay.Options;
@@ -26,4 +26,4 @@ public class IyzicoConfig {
         options.setBaseUrl(baseUrl);
         return options;
     }
-}
+}*/

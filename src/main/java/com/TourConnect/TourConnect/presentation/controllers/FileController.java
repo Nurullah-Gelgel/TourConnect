@@ -4,6 +4,7 @@ package com.TourConnect.TourConnect.presentation.controllers;
 import com.TourConnect.TourConnect.application.services.IPaymentService;
 import org.springframework.core.io.FileSystemResource;
 import org.springframework.core.io.Resource;
+import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
 import org.springframework.http.MediaTypeFactory;
 import org.springframework.http.ResponseEntity;
@@ -13,6 +14,8 @@ import org.springframework.web.multipart.MultipartFile;
 
 import java.io.File;
 import java.io.IOException;
+import java.net.URLEncoder;
+import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
@@ -63,23 +66,34 @@ public class FileController {
         try {
             // Dosya yolunu oluştur
             Path filePath = uploadDir.resolve(filename).normalize();
-            File file = filePath.toFile(); // Dosyayı File nesnesine çevir
+            File file = filePath.toFile();
 
             // Dosyanın varlığını kontrol et
             if (file.exists() && file.canRead()) {
-                Resource resource = new FileSystemResource(file); // Dosyayı bir resource olarak al
+                Resource resource = new FileSystemResource(file);
 
-                // Dosyayı başarılı bir şekilde döndür
+                // Dosya MIME türünü belirle
+                String contentType = Files.probeContentType(filePath);
+                if (contentType == null) {
+                    contentType = "application/octet-stream"; // Fallback MIME type
+                }
+
+                // Dosya adını belirle
+                String encodedFileName = URLEncoder.encode(file.getName(), StandardCharsets.UTF_8.toString()).replace("+", "%20");
+
                 return ResponseEntity.ok()
-                        .contentType(MediaType.APPLICATION_OCTET_STREAM) // Dosya tipi belirle (Genel tip)
+                        .contentType(MediaType.parseMediaType(contentType))
+                        .header(HttpHeaders.CONTENT_DISPOSITION, "inline; filename=\"" + encodedFileName + "\"")
                         .body(resource);
             } else {
-                return ResponseEntity.notFound().build(); // Dosya bulunamadıysa 404 dön
+                return ResponseEntity.notFound().build();
             }
         } catch (Exception e) {
-            return ResponseEntity.badRequest().build(); // Hata durumunda 400 dön
+            e.printStackTrace(); // loglama için
+            return ResponseEntity.badRequest().build();
         }
     }
+
 
 
 

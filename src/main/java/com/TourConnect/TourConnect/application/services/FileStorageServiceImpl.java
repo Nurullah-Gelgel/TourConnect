@@ -30,7 +30,6 @@ public class FileStorageServiceImpl implements FileStorageService {
             Path filePath = uploadPath.resolve(fileName);
             Files.copy(file.getInputStream(), filePath, StandardCopyOption.REPLACE_EXISTING);
 
-            // URL olarak döndür (örneğin: http://localhost:8080/uploads/uuid-filename.jpg)
             return "/uploads/" + fileName;
         } catch (IOException e) {
             throw new RuntimeException("Dosya yüklenemedi", e);
