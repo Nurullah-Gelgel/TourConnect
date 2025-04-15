@@ -30,4 +30,9 @@ public class PaymentDto {
 
     private UUID reservationId;
 
+    private String receipt;
+
+    private Boolean isReceiptVerified;  // Dekont onay durumu
+
+
 }

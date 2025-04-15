@@ -29,6 +29,12 @@ public class Payment {
     @Column(name = "currency", nullable = false)
     private String currency;
 
+    @Column(name = "receipt", nullable = true)
+    private String receipt;
+
+    @Column(name = "is_receipt_verified", nullable = true)
+    private Boolean isReceiptVerified=false;  // Dekont onay durumu
+
     @Column(name = "transaction_id", unique = true, nullable = false)
     private String transactionId;
 
@@ -41,5 +47,7 @@ public class Payment {
     @OneToOne
     @JoinColumn(name = "reservation_id", nullable = false)
     private Reservation reservation;
+
+
 
 }

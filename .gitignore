@@ -87,6 +87,9 @@ Thumbs.db
 /tmp/
 /*.sql
 
+
+/uploads
+
 # Bytecode files
 *.class
 

@@ -50,7 +50,8 @@ public class SecurityConfig {
                                 "/api/hotel/public/**",
                                 "/api/tour/public/**",
                                 "/api/contact/public/**",
-                                "/api/reservation/public/**"
+                                "/api/reservation/public/**",
+                                "/api/files/**"
                         ).permitAll()
                         .anyRequest().authenticated()
                 )
