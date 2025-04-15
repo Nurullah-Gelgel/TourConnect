@@ -23,4 +23,20 @@ public class MailService {
 
         mailSender.send(message);
     }
+
+    public void sendPaymentConfirmation(String toEmail, String reservationCode, String amount) {
+        String subject = "Rahvan - Ödeme Onayı";
+        String body = "Sayın misafirimiz,\n\nÖdemeniz başarıyla alınmıştır.\n"
+                + "PNR Kodunuz: " + reservationCode + "\n"
+                + "Ödeme Tutarı: " + amount + " ₺\n"
+                + "İyi tatiller dileriz!\nRahvan Ekibi";
+
+        SimpleMailMessage message = new SimpleMailMessage();
+        message.setFrom("ngelgel36@gmail.com");
+        message.setTo(toEmail);
+        message.setSubject(subject);
+        message.setText(body);
+
+        mailSender.send(message);
+    }
 }

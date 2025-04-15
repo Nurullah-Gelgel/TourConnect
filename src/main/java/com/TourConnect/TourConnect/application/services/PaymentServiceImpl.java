@@ -30,9 +30,10 @@ public class PaymentServiceImpl  implements IPaymentService {
     private final ZarinpalPaymentProvider zarinpalPaymentProvider;
     private final StripePaymentProvider stripePaymentProvider;
     private final FileStorageService fileStorageService;
+    private final MailService mailService;
 
     @Autowired
-    public PaymentServiceImpl(PaymentRepository paymentRepository, ReservationRepository reservationRepository, PaymentMapper paymentMapper, IyzicoPaymentProvider iyzicoPaymentProvider, ZarinpalPaymentProvider zarinpalPaymentProvider, StripePaymentProvider stripePaymentProvider, FileStorageService fileStorageService) {
+    public PaymentServiceImpl(PaymentRepository paymentRepository, ReservationRepository reservationRepository, PaymentMapper paymentMapper, IyzicoPaymentProvider iyzicoPaymentProvider, ZarinpalPaymentProvider zarinpalPaymentProvider, StripePaymentProvider stripePaymentProvider, FileStorageService fileStorageService, MailService mailService) {
         this.paymentRepository = paymentRepository;
         this.reservationRepository = reservationRepository;
         this.paymentMapper = paymentMapper;
@@ -40,6 +41,8 @@ public class PaymentServiceImpl  implements IPaymentService {
         this.zarinpalPaymentProvider = zarinpalPaymentProvider;
         this.stripePaymentProvider = stripePaymentProvider;
         this.fileStorageService = fileStorageService;
+
+        this.mailService = mailService;
     }
 
     @Transactional
@@ -147,6 +150,11 @@ public class PaymentServiceImpl  implements IPaymentService {
         if (approve) {
             payment.setStatus(PaymentStatus.COMPLETED);
             payment.setIsReceiptVerified(true);
+            Reservation reservation = payment.getReservation();
+            reservation.setStatus("PAID");
+            reservationRepository.save(reservation);
+            //mail gonder
+            mailService.sendPaymentConfirmation(reservation.getGuestEmail(), reservation.getPnrCode(), payment.getAmount().toString());
         } else {
             payment.setStatus(PaymentStatus.REJECTED);
             payment.setIsReceiptVerified(false);
