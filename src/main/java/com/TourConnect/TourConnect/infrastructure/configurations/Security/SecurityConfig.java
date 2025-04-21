@@ -40,9 +40,10 @@ public class SecurityConfig {
 
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
-        http
+        return http
                 .cors(cors -> cors.configurationSource(corsConfigurationSource()))
                 .csrf(csrf -> csrf.disable())
+                .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .authorizeHttpRequests(auth -> auth
                         .requestMatchers(HttpMethod.OPTIONS, "/**").permitAll()
                         .requestMatchers(
@@ -58,14 +59,11 @@ public class SecurityConfig {
                                 "/api/files/**"
                         ).permitAll()
                         .anyRequest().authenticated()
-
                 )
-                .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS));
-
-        http.addFilterBefore(jwtAuthenticationFilter, UsernamePasswordAuthenticationFilter.class);
-
-        return http.build();
+                .addFilterBefore(jwtAuthenticationFilter, UsernamePasswordAuthenticationFilter.class)
+                .build();
     }
+
 
     @Bean
     public AuthenticationManager authenticationManager() {
@@ -84,7 +82,13 @@ public class SecurityConfig {
     @Bean
     public CorsConfigurationSource corsConfigurationSource() {
         CorsConfiguration configuration = new CorsConfiguration();
-        configuration.setAllowedOrigins(Arrays.asList("http://localhost:3000", "https://rahvan-thtm.onrender.com", "http://185.95.165.252:3000","http://rahvantur.com", "https://rahvantur.com"));
+        configuration.setAllowedOrigins(Arrays.asList(
+                "http://localhost:3000",
+                "https://rahvantur.com",
+                "http://rahvantur.com",
+                "https://www.rahvantur.com",
+                "http://www.rahvantur.com"
+        ));
         configuration.setAllowedMethods(Arrays.asList("GET", "POST", "PUT", "DELETE", "OPTIONS"));
         configuration.setAllowedHeaders(Arrays.asList("*"));
         configuration.setExposedHeaders(Arrays.asList("Authorization"));
