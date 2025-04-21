@@ -42,8 +42,8 @@ public class SecurityConfig {
                 .cors(cors -> cors.configurationSource(corsConfigurationSource()))
                 .csrf(csrf -> csrf.disable())
                 .authorizeHttpRequests(auth -> auth
+                        .requestMatchers(HttpMethod.OPTIONS, "/**").permitAll()
                         .requestMatchers(
-                                HttpMethod.OPTIONS, "/**",
                                 "/swagger-ui/**",
                                 "/v3/api-docs/**",
                                 "/api/auth/login",
@@ -56,6 +56,7 @@ public class SecurityConfig {
                                 "/api/files/**"
                         ).permitAll()
                         .anyRequest().authenticated()
+
                 )
                 .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS));
 
