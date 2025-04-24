@@ -1,9 +1,14 @@
 package com.TourConnect.TourConnect.application.services;
 
 import com.TourConnect.TourConnect.application.dtos.HotelDto;
+import com.TourConnect.TourConnect.application.dtos.RoomTypeDto;
 import com.TourConnect.TourConnect.application.mappers.HotelMapper;
+import com.TourConnect.TourConnect.application.mappers.RoomTypeMapper;
 import com.TourConnect.TourConnect.domain.entities.Hotel;
+import com.TourConnect.TourConnect.domain.entities.RoomType;
 import com.TourConnect.TourConnect.domain.repositories.HotelRepository;
+import com.TourConnect.TourConnect.domain.repositories.RoomTypeRepository;
+import jakarta.persistence.EntityNotFoundException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -17,10 +22,14 @@ public class HotelService {
 
     private final HotelRepository hotelRepository;
     private final HotelMapper hotelMapper;
+    private final RoomTypeRepository roomTypeRepository;
+    private final RoomTypeMapper roomTypeMapper;
 
-    public HotelService(HotelRepository hotelRepository, HotelMapper hotelMapper) {
+    public HotelService(HotelRepository hotelRepository, HotelMapper hotelMapper, RoomTypeRepository roomTypeRepository, RoomTypeMapper roomTypeMapper) {
         this.hotelRepository = hotelRepository;
         this.hotelMapper = hotelMapper;
+        this.roomTypeRepository = roomTypeRepository;
+        this.roomTypeMapper = roomTypeMapper;
     }
 
 
@@ -59,5 +68,14 @@ public class HotelService {
         hotelRepository.deleteAll();
     }
 
+    public List<RoomTypeDto> getRoomTypesByHotelId(UUID hotelId) {
+        Hotel hotel = hotelRepository.findById(hotelId)
+                .orElseThrow(() -> new EntityNotFoundException("Hotel not found"));
+
+        List<RoomType> roomTypes = roomTypeRepository.findByHotel_Id(hotelId);
+        return roomTypes.stream()
+                .map(roomTypeMapper::toDto)
+                .collect(Collectors.toList());
+    }
 
 }

@@ -1,6 +1,7 @@
 package com.TourConnect.TourConnect.presentation.controllers;
 
 import com.TourConnect.TourConnect.application.dtos.HotelDto;
+import com.TourConnect.TourConnect.application.dtos.RoomTypeDto;
 import com.TourConnect.TourConnect.application.services.HotelService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -26,6 +27,12 @@ public class HotelController {
     @GetMapping("public/getHotelById")
     public ResponseEntity<HotelDto> getHotelById(@RequestParam UUID id) {
         return ResponseEntity.ok(hotelService.getHotelById(id));
+    }
+
+    @GetMapping("public/{hotelId}/room-types")
+    public ResponseEntity<List<RoomTypeDto>> getRoomTypes(@PathVariable UUID hotelId) {
+        List<RoomTypeDto> responses = hotelService.getRoomTypesByHotelId(hotelId);
+        return ResponseEntity.ok(responses);
     }
 
     @PostMapping("/createHotel")
