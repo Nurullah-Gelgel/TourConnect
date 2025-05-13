@@ -23,7 +23,7 @@ public class TouristPlace {
     @Column(nullable = false, name = "name")
     private String name; // Yer adı
 
-    @Column(nullable = false, name = "description")
+    @Column(nullable = false,length = 1500, name = "description")
     private String description; // Açıklama
 
     @Column(nullable = false, name = "location")

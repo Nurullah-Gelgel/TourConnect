@@ -21,8 +21,6 @@ public class  ReservationDto {
 
     private Double totalAmount;
 
-    private Integer reservationGuests;
-
     private LocalDate checkIn;
 
     private LocalDate checkOut;
