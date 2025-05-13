@@ -26,7 +26,7 @@ public class Reservation {
     @Column(name = "total_amount", nullable = false)
     private Double totalAmount;
 
-    @Column(name = "reservation_guests", nullable = false)
+    @Column(name = "reservation_guests", nullable = true)
     private Integer reservationGuests;
 
     @Column(name = "pnr_code", unique = true, nullable = false)
